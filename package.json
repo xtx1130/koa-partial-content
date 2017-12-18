@@ -1,0 +1,22 @@
+{
+  "name": "koa-partial-content",
+  "version": "1.0.0",
+  "description": "use koa2 to establish http 206 status, it's about partial content",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --forceExit"
+  },
+  "keywords": [
+    "koa2",
+    "206",
+    "partial",
+    "content"
+  ],
+  "author": "xtx1130@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^22.0.0",
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0"
+  }
+}
