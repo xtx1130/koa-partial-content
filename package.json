@@ -18,5 +18,8 @@
     "jest": "^22.0.0",
     "koa": "^2.4.1",
     "koa-router": "^7.3.0"
+  },
+  "dependencies": {
+    "mime-types": "^2.1.17"
   }
 }
