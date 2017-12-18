@@ -4,7 +4,8 @@
   "description": "use koa2 to establish http 206 status, it's about partial content",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "lint": "npx standard -- --fix"
   },
   "keywords": [
     "koa2",
@@ -17,7 +18,8 @@
   "devDependencies": {
     "jest": "^22.0.0",
     "koa": "^2.4.1",
-    "koa-router": "^7.3.0"
+    "koa-router": "^7.3.0",
+    "standard": "^10.0.3"
   },
   "dependencies": {
     "mime-types": "^2.1.17"
