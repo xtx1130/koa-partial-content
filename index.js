@@ -54,7 +54,11 @@ class KoaPartial {
   }
   middleWare() {
   	let dispatch = async (ctx, next) => {
+  		try{
 
+  		} catch(e) {
+  			throw new Error(e)
+  		}
   	}
   	return dispatch 
   }
