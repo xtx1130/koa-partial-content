@@ -1,3 +1,4 @@
 ## koa-partial-content
 
-### TO DO...
+### Target
+write a middleware under koa,use as http status code 206
