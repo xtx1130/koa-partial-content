@@ -27,6 +27,14 @@
   "dependencies": {
     "mime-types": "^2.1.17"
   },
+  "homepage": "https://github.com/xtx1130/koa-partial-content",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtx1130/koa-partial-content"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "jest": {
     "testMatch": [
       "**/test/test.js"
