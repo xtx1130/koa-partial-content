@@ -1,4 +1,5 @@
 ## koa-partial-content
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Build Status](https://travis-ci.org/xtx1130/koa-partial-content.svg?branch=master)](https://travis-ci.org/xtx1130/koa-partial-content) [![Coverage Status](https://coveralls.io/repos/github/xtx1130/koa-partial-content/badge.svg?branch=master)](https://coveralls.io/github/xtx1130/koa-partial-content?branch=master) 
 >  This package makes media type(mp3|mp4|flv|webm|ogv|mpg|mpg|wav|ogg) response http status code 206
 
 ### Usage
