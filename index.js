@@ -4,9 +4,11 @@ const mt = require('mime-types')
 const fs = require('fs')
 const path = require('path')
 
+const basePath = Symbol.for('project base path')
+
 class KoaPartial {
-  constructor(basePath){
-    this.basePath = basePath || process.cwd()
+  constructor(projectPath){
+    this[basePath] = projectPath || process.cwd()
   }
   isMedia(filePath) {
   	let matches = filePath.match(/\.(mp3|mp4|flv|webm|ogv|mpg|mpg|wav|ogg)$/ig)
@@ -16,9 +18,10 @@ class KoaPartial {
 
     return new Promise((resolve, reject) => {
       let stream = void 0
-      if(!isMedia(filePath)){
+      if(!this.isMedia(filePath)){
     	let err = new Error('This path is not a media')
       	reject(err)
+      	return false
       }
       if(stat.isFile()){
         stream = fs.createReadStream(filePath, {start: start, end: end})
@@ -38,24 +41,38 @@ class KoaPartial {
     })
   }
   async sendResponse(ctx) {
+  	let absolutePath = path.join(this[basePath], ctx.path)
+  	let stat = void 0
+  	try{
+  	  stat = fs.statSync(absolutePath)
+  	}catch(e){
+  	  throw new Error(`${absolutePath} file not exists`)
+  	}
     let range = ctx.request.header['range'] || 'bytes=0-'
   	let bytes = range.split('=').pop().split('-')
     let fileStart = Number(bytes[0])
     let fileEnd = Number(bytes[1]) || stat.size - 1
     let contentType = mt.lookup(ctx.path)
-    let absolutePath = path.join(this.basePath, ctx.path)
-    let stat = fs.statSync(absolutePath)
-    
-    ctx.status = 206
     ctx.type = contentType
     ctx.set('Accept-Ranges', 'bytes')
-    ctx.set('Content-Range', `bytes ${fileStart}-${fileEnd}/${stat.size}`)
-    await writeFileStream(ctx, fileStart, fileEnd, absolutePath, stat)
+    if(fileEnd > stat.size - 1 || fileStart > stat.size - 1){
+      ctx.status = 416
+      ctx.set('Content-Range', `bytes ${stat.size}`)
+      ctx.body = 'Requested Range Not Satisfiable'
+    }else{
+      ctx.status = 206
+      ctx.set('Content-Range', `bytes ${fileStart}-${fileEnd}/${stat.size}`)
+      try{
+        await this.writeFileStream(ctx, fileStart, fileEnd, absolutePath, stat)
+      }catch(e){
+      	throw new Error(e)
+      }
+    }
   }
-  middleWare() {
+  middleware() {
   	let dispatch = async (ctx, next) => {
       try{
-
+        await this.sendResponse(ctx)
   	  } catch(e) {
         throw new Error(e)
       }
@@ -63,3 +80,5 @@ class KoaPartial {
   	return dispatch 
   }
 }
+
+exports = module.exports = KoaPartial
