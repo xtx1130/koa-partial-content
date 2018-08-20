@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "coveralls": "^3.0.0",
-    "jest": "^22.0.0",
+    "jest": "^23.5.0",
     "koa": "^2.4.1",
     "koa-router": "^7.3.0",
     "request-promise": "^4.2.2",
