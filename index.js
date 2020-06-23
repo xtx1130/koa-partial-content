@@ -40,8 +40,9 @@ class KoaPartial {
       }
     })
   }
-  async sendResponse(ctx) {
-  	let absolutePath = path.join(this[basePath], ctx.path)
+  async sendResponse(ctx, videoPath) {
+    let trueVideoPath = videoPath ? videoPath : ctx.path
+  	let absolutePath = path.join(this[basePath], trueVideoPath)
   	let stat = void 0
   	try{
   	  stat = fs.statSync(absolutePath)
@@ -69,10 +70,10 @@ class KoaPartial {
       }
     }
   }
-  middleware() {
+  middleware(videoPath) {
   	let dispatch = async (ctx, next) => {
       try{
-        await this.sendResponse(ctx)
+        await this.sendResponse(ctx, videoPath)
   	  } catch(e) {
         throw new Error(e)
       }

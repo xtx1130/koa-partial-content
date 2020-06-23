@@ -19,7 +19,7 @@ let app = new koa()
 let router = new koaRouter()
 let part = new koaPart(__dirname)//your server base path,defalut is process.cwd()
 
-router.get('/source/barroom.mp3', part.middleware())//when barroom.mp3 is requested, it will response http status code 206
+router.get('/source/barroom.mp3', part.middleware())//when barroom.mp3 is requested, it will response http status code 206 or part.middleware(truePath), it will use truePath first, secondly ctx.path 
 app.use(router.routes())
 ```
 - http status code:
